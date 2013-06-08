@@ -13,7 +13,7 @@ case class Node(url: String, params: Parameters) {
 
 		try {
 			val doc: Document = Jsoup.connect(url).get();
-			action.process(doc);
+			action.process(doc, params);
 			//create neighbours:
 			val anchors: Elements = doc.select("a");
 			for (anchor <- anchors.iterator()) Graph.getNodeFor(anchor.attr("href")) match {
@@ -26,7 +26,7 @@ case class Node(url: String, params: Parameters) {
 				}
 			}
 		} catch {
-			case e: Exception => action.error(e.getMessage());
+			case e: Exception => action.handleError(e.getMessage());
 		}
 	}
 }
