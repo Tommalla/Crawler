@@ -1,7 +1,16 @@
 package pl.edu.mimuw.crawler.tz336079
 
 class Crawler {
-	//TODO: implement
-	//this shall be the main class of the whole project,
-	//the user should use
+
+	private var isRunning: Boolean = false;
+
+	def start(): Unit = {
+		isRunning = true;
+		while (isRunning && !SitesQueue.empty())
+			SitesQueue.getFront().get.process(/*Add SiteAction*/);
+	}
+
+	def stop(): Unit = {
+		isRunning = false;
+	}
 }
