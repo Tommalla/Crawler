@@ -7,7 +7,7 @@ object SitesQueue {
 	private var queue: Queue[Node] = new Queue[Node]();
 
 	def addURL(url: String): Unit = {
-		queue.enqueue(Graph.getNodeFor(url));
+		queue.enqueue(Graph.getNodeFor(url).get);
 	}
 
 	def getFront(): Option[Node] = {

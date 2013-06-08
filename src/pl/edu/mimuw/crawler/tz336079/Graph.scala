@@ -13,13 +13,11 @@ object Graph {
 	 * @brief Returns a node for the given url
 	 * If the node is not present, the method creates it.
 	 */
-	def getNodeFor(url: String): Node = {
+	def getNodeFor(url: String): Option[Node] = {
+			map.get(url)
+	}
 
-		if (this.isURLPresent(url))
-			map.get(url).get;
-		else {
-			map += ((url, new Node(url)));
-			map.get(url).get;
-		}
+	def addNode(node: Node): Unit = node match {
+		case Node(url: String, _) => map += ((url, node));
 	}
 }

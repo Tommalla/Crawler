@@ -1,6 +1,6 @@
 package pl.edu.mimuw.crawler.tz336079
 
-class Crawler(action: SiteAction) {
+class Crawler(action: SiteAction, initialParams: Parameters) {
 
 	private var isRunning: Boolean = false;
 
@@ -15,6 +15,8 @@ class Crawler(action: SiteAction) {
 	}
 
 	def addTargetURL(url: String): Unit = {
+		if (Graph.getNodeFor(url) == None)
+			Graph.addNode(new Node(url, this.initialParams));
 		SitesQueue.addURL(url);
 	}
 }
