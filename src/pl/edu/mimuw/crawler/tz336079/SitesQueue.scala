@@ -16,4 +16,8 @@ object SitesQueue {
 		else
 			None;
 	}
+
+	def empty(): Boolean = {
+		queue.size == 0;
+	}
 }
