@@ -9,7 +9,17 @@ object Graph {
 		map.contains(url);
 	}
 
-	def getNodeFor(url: String): Option[Node] = {
-		map.get(url);
+	/**
+	 * @brief Returns a node for the given url
+	 * If the node is not present, the method creates it.
+	 */
+	def getNodeFor(url: String): Node = {
+
+		if (this.isURLPresent(url))
+			map.get(url).get;
+		else {
+			map += ((url, new Node(url)));
+			map.get(url).get;
+		}
 	}
 }
