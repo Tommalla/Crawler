@@ -9,22 +9,18 @@ class Node(url: String) {
 
 	var neighbours: List[Node] = Nil;
 
-	//processes the node (TODO: add action!)
-	def process(/* Site action here */): Unit = {
+	def process(action: SiteAction): Unit = {
 
 		try {
 			val doc: Document = Jsoup.connect(url).get();
-			//TODO process the site with action
+			action.process(doc);
 			//create neighbours:
 			val anchors: Elements = doc.select("a");
 			for (anchor <- anchors.iterator()) {
 				neighbours = Graph.getNodeFor(anchor.attr("href"))::neighbours;
 			}
 		} catch {
-			case e: Exception => //TODO use error method from SiteAction
+			case e: Exception => action.error(e.getMessage());
 		}
-		//TODO implement:
-		//create the list of neighbours from urls,
-		//use SiteAction to collect statistics
 	}
 }
