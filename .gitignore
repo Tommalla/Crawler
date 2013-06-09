@@ -1,5 +1,6 @@
+data/
 *.jar
-/build/
-/dist/
+build/
+dist/
 nbproject/
 build.xml
