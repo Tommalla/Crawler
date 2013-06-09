@@ -20,7 +20,9 @@ class DomainCounterAction extends SiteAction {
 		}
 	}
 
-	/*def getResults(): List[(String, Int)] = {
-		for (((key, val)) <- resMap) yield (key, val);
-	}*/
+	def getResults(): List[(String, Int)] = {
+		var tmp: List[(String, Int)] = resMap.foldLeft[List[(String, Int)]](Nil)((acc, x) => x::acc)
+		tmp.sortWith({ case ((keyA, valA), (keyB, valB)) => if (valA < valB) true else keyA < keyB })
+		tmp;
+	}
 }
