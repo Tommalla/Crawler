@@ -5,4 +5,5 @@ trait Parameters {
 	 * Returns parameters for the child node
 	 */
 	def getChild(): Parameters;
+	def canContinue(): Boolean;
 }

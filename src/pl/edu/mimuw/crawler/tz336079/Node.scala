@@ -15,6 +15,9 @@ case class Node(url: String, params: Parameters) {
 			val doc: Document = Jsoup.connect(url).get();
 			action.process(doc, params);
 			//create neighbours:
+			if (this.params.canContinue() == false)
+				return;
+
 			val anchors: Elements = doc.select("a");
 			for (anchor <- anchors.iterator()) Graph.getNodeFor(anchor.attr("href")) match {
 				case v: Option[Node] => /*been there, done that*/
