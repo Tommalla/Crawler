@@ -3,8 +3,6 @@ package pl.edu.mimuw.crawler.tz336079
 import _root_.org.jsoup.nodes._;
 import _root_.org.jsoup.select._;
 import scala.collection.immutable.HashMap;
-import scala.util.matching.Regex
-
 
 
 class DomainCounterAction(baseDomain: String) extends SiteAction {
@@ -16,20 +14,15 @@ class DomainCounterAction(baseDomain: String) extends SiteAction {
 	}
 
 	def process(doc: Document, params: Parameters): Boolean = {
-
-		val External = new Regex("""https?://([^/]*)(/.*){0,1}""", "domain", "locPath");
-		val Local = new Regex("""(.*)/([^/]*)""");
-
-
-		if ( (doc.baseUri match {
-			case External(domain, localPath) => domain == baseDomain
-			case _ => true;
-		}) == false ) return false;
+		if ( Methods.isURLExternal(doc.baseUri) && Methods.getBaseDomain(doc.baseUri) != baseDomain )
+			return false;
 
 		for (url <- this.getAllURLs(doc)) url match {
-			case External(domain, locPath) => {
-					val qty: Int = if (resMap.contains(domain)) resMap.get(domain).get else 0;
-					resMap = (resMap - domain) + ((domain, qty + 1));
+			case Methods.External(domain, _) => {
+					if (domain != baseDomain) {
+						val qty: Int = if (resMap.contains(domain)) resMap.get(domain).get else 0;
+						resMap = (resMap - domain) + ((domain, qty + 1));
+					}
 			}
 			case _ => /* Local url, don't bother */
 		}

@@ -7,7 +7,7 @@ object Demo1 {
 	def main(args: Array[String]) = {
 		if (args.length < 1)
 			throw new IllegalArgumentException("Not enough arguments!");
-		if (Methods.isURLValid(args(0)) == false)
+		if (Methods.isURLExternal(args(0)) == false)
 			throw new IllegalArgumentException("Malformed url!");
 
 		val params: NullParameters = new NullParameters();

@@ -3,8 +3,8 @@ package pl.edu.mimuw.crawler.tz336079
 import _root_.org.jsoup.nodes._;
 
 class ChainedExternalSitesCounterAction(baseDomain: String, depthLimit: Int) extends SiteAction {
-	var res: Int = 0;
-	var errors: List[String] = Nil;
+	private var res: Int = 0;
+	private var errors: List[String] = Nil;
 
 	def process(doc: Document, params: Parameters): Boolean = {
 		params match {
@@ -12,10 +12,12 @@ class ChainedExternalSitesCounterAction(baseDomain: String, depthLimit: Int) ext
 			case _ => return false;
 		}
 
-		doc.baseUri() match {
-			case Methods.External(_, _) => return false
-			case _ => /*don't bother */
-		}
+		if (Methods.isURLExternal(doc.baseUri()))
+			return false
+		/*	doc.baseUri() match {
+		 case Methods.External(_, _) => return false
+		 case _ => /*don't bother */
+		 }*/
 
 		res = res + 1;
 

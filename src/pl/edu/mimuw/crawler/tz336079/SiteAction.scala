@@ -13,7 +13,7 @@ trait SiteAction {
 		val anchors: Elements = doc.select("a");
 		var res: List[String] = Nil;
 		for (anchor <- anchors.iterator()) {
-			res = anchor.attr("href")::res;
+			res = anchor.absUrl("href")::res;
 		}
 		res;
 	}

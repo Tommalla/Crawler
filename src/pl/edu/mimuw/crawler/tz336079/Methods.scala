@@ -9,7 +9,7 @@ import scala.util.matching.Regex;
 import _root_.org.jsoup.nodes._;
 
 object Methods {
-	val External = new Regex("""https?://([^/]*)(/.*){0,1}""", "domain", "locPath");
+	val External = new Regex("""https?://([^/]*)(/.*){0,1}""", "domain", "localPath");
 	val Local = new Regex("""(.*)/([^/]*)""");
 
 	def getBaseDomain(url: String): String = url match {
@@ -18,7 +18,7 @@ object Methods {
 		case _ => throw new Exception("Methods.getBaseDomain: " + url + " is a malformed url");
 	}
 
-	def isURLValid(url: String): Boolean = url match {
+	def isURLExternal(url: String): Boolean = url match {
 		case External(_, _) => true;
 		case _ => false;
 	}
@@ -29,11 +29,11 @@ object Methods {
 	}
 
 	def getCorrectUrl(url: String, doc: Document): String = {
-		if (isURLValid(url))
+		if (isURLExternal(url))
 			url;
 		else doc.baseUri() match {
 			case Local(base, _) => base + "/" + url;
-			case _ => throw new Exception("Methods.getBaseDomain: " + url + " is a malformed url");
+			case _ => throw new Exception("Methods.getCorrectUrl: " + url + " is a malformed url");
 		}
 	}
 }
