@@ -6,7 +6,7 @@ import _root_.org.jsoup.select._;
 trait SiteAction {
 	implicit def iteratorToWrapper[T](iter:java.util.Iterator[T]):IteratorWrapper[T] = new IteratorWrapper[T](iter);
 
-	def process(doc: Document, params: Parameters): Unit;
+	def process(doc: Document, params: Parameters): Boolean;
 	def handleError(errorInfo: String): Unit;
 
 	def getAllURLs(doc: Document): List[String] = {
