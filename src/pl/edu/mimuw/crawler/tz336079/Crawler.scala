@@ -6,8 +6,9 @@ class Crawler(action: SiteAction, initialParams: Parameters) {
 
 	def start(): Unit = {
 		isRunning = true;
-		while (isRunning && !SitesQueue.empty())
-			SitesQueue.getFront().get.process(action);
+		while (isRunning && !SitesQueue.empty()) {
+			SitesQueue.getFront().process(action);
+		}
 	}
 
 	def stop(): Unit = {

@@ -10,21 +10,25 @@ case class Node(url: String, params: Parameters) {
 	var neighbours: List[Node] = Nil;
 
 	def process(action: SiteAction): Unit = {
-
 		try {
 			val doc: Document = Jsoup.connect(url).get();
-			action.process(doc, params);
-			//create neighbours:
-			if (this.params.canContinue() == false)
+
+			//process the site and check if the user wants to go any further
+			if (action.process(doc, params) == false || this.params.canContinue() == false)
 				return;
 
+			//create neighbours:
 			val anchors: Elements = doc.select("a");
-			for (anchor <- anchors.iterator()) Graph.getNodeFor(anchor.attr("href")) match {
-				case None => {
-					val v: Node = new Node(anchor.attr("href"), params.getChild());
-					Graph.addNode(v);
-					neighbours = v::neighbours;
-					SitesQueue.addURL(url);
+			for (anchor <- anchors.iterator()) {
+				val dst: String = anchor.absUrl("href");
+				Graph.getNodeFor(dst) match {
+					case None => {
+						val v: Node = new Node(dst, params.getChild());
+						Graph.addNode(v);
+						neighbours = v::neighbours;
+						SitesQueue.addURL(dst);
+					}
+					case _ => /* don't bother... */
 				}
 			}
 		} catch {

@@ -10,11 +10,8 @@ object SitesQueue {
 		queue.enqueue(Graph.getNodeFor(url).get);
 	}
 
-	def getFront(): Option[Node] = {
-		if (queue.size > 0)
-			queue.dequeue().asInstanceOf[Option[Node]];
-		else
-			None;
+	def getFront(): Node = {
+		queue.dequeue();
 	}
 
 	def empty(): Boolean = {

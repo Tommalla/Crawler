@@ -14,7 +14,7 @@ object Graph {
 	 * If the node is not present, the method creates it.
 	 */
 	def getNodeFor(url: String): Option[Node] = {
-			map.get(url)
+		map.get(url);
 	}
 
 	def addNode(node: Node): Unit = node match {
