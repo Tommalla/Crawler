@@ -4,6 +4,7 @@ import _root_.org.jsoup.nodes._;
 
 class ChainedExternalSitesCounterAction(baseDomain: String, depthLimit: Int) extends SiteAction {
 	var res: Int = 0;
+	var errors: List[String] = Nil;
 
 	def process(doc: Document, params: Parameters): Boolean = {
 		params match {
@@ -21,7 +22,13 @@ class ChainedExternalSitesCounterAction(baseDomain: String, depthLimit: Int) ext
 		true;
 	}
 
-	def handleError(errorInfo: String): Unit = {};
+	def handleError(errorInfo: String): Unit = {
+		errors = errorInfo::errors;
+	}
+
+	def getErrors(): List[String] = {
+		errors;
+	}
 
 	def getResult(): Int = {
 		res;

@@ -10,6 +10,14 @@ object Demo2 {
 			throw new IllegalArgumentException("Malformed url!");
 
 		val params: DepthParameters = new DepthParameters(0);
-		
+		val action: ChainedExternalSitesCounterAction =
+			new ChainedExternalSitesCounterAction(Methods.getBaseDomain(args(0)),
+							      augmentString(args(1)).toInt );
+
+		val crawler: Crawler = new Crawler(action, params);
+		crawler.addTargetURL(args(0));
+		crawler.start();
+		println(action.getResult());
+		println(action.getErrors());
 	}
 }
