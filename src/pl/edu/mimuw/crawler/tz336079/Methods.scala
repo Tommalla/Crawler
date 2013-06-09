@@ -20,4 +20,9 @@ object Methods {
 		case External(_, _) => true;
 		case _ => false;
 	}
+
+	def isURLLocal(url: String): Boolean = url match {
+		case Local(_, _) => true
+		case _ => false
+	}
 }

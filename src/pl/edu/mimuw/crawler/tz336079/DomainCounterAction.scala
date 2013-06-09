@@ -8,8 +8,6 @@ import scala.util.matching.Regex
 
 
 class DomainCounterAction(baseDomain: String) extends SiteAction {
-	println("baseDomain: " + baseDomain);
-
 	private var errors: List[String] = Nil;
 	private var resMap: HashMap[String, Int] = new HashMap[String, Int]();
 

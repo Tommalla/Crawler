@@ -14,7 +14,7 @@ case class Node(url: String, params: Parameters) {
 			val doc: Document = Jsoup.connect(url).get();
 
 			//process the site and check if the user wants to go any further
-			if (action.process(doc, params) == false || this.params.canContinue() == false)
+			if (action.process(doc, params) == false)
 				return;
 
 			//create neighbours:
