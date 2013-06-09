@@ -1,9 +1,8 @@
-package pl.edu.mimuw.crawler.tz336079
-import scala.collection.mutable.Queue
+package pl.edu.mimuw.crawler.tz336079;
 
-//TODO fiddle with private, package etc.
+import scala.collection.mutable.Queue;
 
-object SitesQueue {
+private[tz336079] object SitesQueue {
 	private var queue: Queue[Node] = new Queue[Node]();
 
 	def addURL(url: String): Unit = {

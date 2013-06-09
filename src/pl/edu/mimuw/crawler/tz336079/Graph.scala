@@ -2,7 +2,7 @@ package pl.edu.mimuw.crawler.tz336079
 
 import scala.collection.mutable.HashMap
 
-object Graph {
+private[tz336079] object Graph {
 	private var map: HashMap[String, Node] = new HashMap[String, Node]();
 
 	def isURLPresent(url: String): Boolean = {

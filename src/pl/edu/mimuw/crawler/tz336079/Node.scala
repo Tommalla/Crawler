@@ -5,13 +5,13 @@ import _root_.org.jsoup.nodes._;
 import _root_.org.jsoup.select._;import java.io.File
 
 
-case class Node(url: String, params: Parameters) {
+private[tz336079] case class Node(url: String, params: Parameters) {
 	implicit def iteratorToWrapper[T](iter:java.util.Iterator[T]):IteratorWrapper[T] = new IteratorWrapper[T](iter);
 
 	private var neighbours: List[Node] = Nil;
 
 	def process(action: SiteAction): Unit = {
-		println("Processing " + url);
+		//println("Processing " + url);
 		try {
 			val doc: Document = if (Methods.isURLExternal(url)) Jsoup.connect(url).get()
 						else Jsoup.parse(new File(url), "UTF-8");
