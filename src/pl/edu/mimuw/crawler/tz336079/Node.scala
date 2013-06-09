@@ -20,7 +20,6 @@ case class Node(url: String, params: Parameters) {
 
 			val anchors: Elements = doc.select("a");
 			for (anchor <- anchors.iterator()) Graph.getNodeFor(anchor.attr("href")) match {
-				case v: Option[Node] => /*been there, done that*/
 				case None => {
 					val v: Node = new Node(anchor.attr("href"), params.getChild());
 					Graph.addNode(v);
