@@ -8,7 +8,7 @@ package pl.edu.mimuw.crawler.tz336079
 import scala.util.matching.Regex;
 
 object Methods {
-	val External = new Regex("""http://([^/]*)(/.*){0,1}""", "domain", "locPath");
+	val External = new Regex("""https?://([^/]*)(/.*){0,1}""", "domain", "locPath");
 	val Local = new Regex("""(.*)/([^/]*)""");
 
 	def getBaseDomain(url: String): String = url match {

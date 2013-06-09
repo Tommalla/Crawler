@@ -8,6 +8,8 @@ import scala.util.matching.Regex
 
 
 class DomainCounterAction(baseDomain: String) extends SiteAction {
+	println("baseDomain: " + baseDomain);
+
 	private var errors: List[String] = Nil;
 	private var resMap: HashMap[String, Int] = new HashMap[String, Int]();
 
@@ -17,8 +19,9 @@ class DomainCounterAction(baseDomain: String) extends SiteAction {
 
 	def process(doc: Document, params: Parameters): Boolean = {
 
-		val External = new Regex("""http://([^/]*)(/.*){0,1}""", "domain", "locPath");
+		val External = new Regex("""https?://([^/]*)(/.*){0,1}""", "domain", "locPath");
 		val Local = new Regex("""(.*)/([^/]*)""");
+
 
 		if ( (doc.baseUri match {
 			case External(domain, localPath) => domain == baseDomain
