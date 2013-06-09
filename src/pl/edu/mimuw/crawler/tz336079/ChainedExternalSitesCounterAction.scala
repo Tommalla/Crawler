@@ -14,10 +14,6 @@ class ChainedExternalSitesCounterAction(baseDomain: String, depthLimit: Int) ext
 
 		if (Methods.isURLExternal(doc.baseUri()))
 			return false
-		/*	doc.baseUri() match {
-		 case Methods.External(_, _) => return false
-		 case _ => /*don't bother */
-		 }*/
 
 		res = res + 1;
 
