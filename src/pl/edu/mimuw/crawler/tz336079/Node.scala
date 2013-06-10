@@ -27,7 +27,7 @@ private[tz336079] case class Node(url: String, params: Parameters) {
 					if (Methods.isURLExternal(anchor.absUrl("href")))
 						anchor.absUrl("href")
 					else
-						Methods.getCorrectUrl(anchor.attr("href"), doc) };
+						Methods.getCorrectUrl(anchor.attr("href"), doc.baseUri()) };
 
 				Graph.getNodeFor(dst) match {
 					case None => {	//not present in the graph
