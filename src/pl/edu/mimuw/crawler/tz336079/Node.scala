@@ -10,13 +10,11 @@ import java.io.File;import java.net.URI
 private[tz336079] case class Node(url: String, params: Parameters) {
 	implicit def iteratorToWrapper[T](iter:java.util.Iterator[T]):IteratorWrapper[T] = new IteratorWrapper[T](iter);
 
-	//private var neighbours: List[Node] = Nil;
-
 	def process(action: SiteAction): Unit = {
 		if (action.shouldProcess(url, params) == false)
 			return;
 
-		println("Processing " + url);
+		//println("Processing " + url);
 		try {
 			val doc: Document = if (Methods.isURLExternal(url)) Jsoup.connect(url).get()
 			else {
@@ -31,11 +29,7 @@ private[tz336079] case class Node(url: String, params: Parameters) {
 			//create neighbours:
 			val anchors: Elements = doc.select("a");
 			for (anchor <- anchors.iterator()) {
-				val dst: String = anchor.absUrl("href"); /*{
-					if (Methods.isURLExternal(anchor.absUrl("href")))
-						anchor.absUrl("href")
-					else
-						Methods.getCorrectUrl(anchor.attr("href"), doc.baseUri()) };*/
+				val dst: String = anchor.absUrl("href");
 
 				Graph.getNodeFor(dst) match {
 					case None => {	//not present in the graph
