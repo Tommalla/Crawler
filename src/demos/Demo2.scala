@@ -18,6 +18,7 @@ object Demo2 {
 		crawler.addTargetURL(args(0));
 		crawler.start();
 		println(action.getResult());
-		//println(action.getErrors());
+		println(action.getErrors());
+		println(action.getErrors().length);
 	}
 }

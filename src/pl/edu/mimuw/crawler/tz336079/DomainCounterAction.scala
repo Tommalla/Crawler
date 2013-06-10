@@ -28,9 +28,6 @@ class DomainCounterAction(baseDomain: String) extends SiteAction {
 	 * different from [[baseDomain]]. Otherwise true.
 	 */
 	def process(doc: Document, params: Parameters): Boolean = {
-		if ( Methods.isURLExternal(doc.baseUri) && Methods.getBaseDomain(doc.baseUri) != baseDomain )
-			return false;
-
 		for (url <- this.getAllURLs(doc)) url match {
 			case Methods.External(domain, _) => {
 					if (domain != baseDomain) {
@@ -42,6 +39,13 @@ class DomainCounterAction(baseDomain: String) extends SiteAction {
 		}
 
 		true;
+	}
+
+	/**
+	 * Returns true if the site resides within the baseDomain.
+	 */
+	def shouldProcess(url: String, params: Parameters): Boolean = {
+		Methods.isURLExternal(url) == false || Methods.getBaseDomain(url) == baseDomain
 	}
 
 	/**

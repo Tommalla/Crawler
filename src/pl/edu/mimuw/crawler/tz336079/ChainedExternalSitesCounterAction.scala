@@ -18,17 +18,21 @@ class ChainedExternalSitesCounterAction(baseDomain: String, depthLimit: Int) ext
 	 * Otherwise counts the site and returns true.
 	 */
 	def process(doc: Document, params: Parameters): Boolean = {
+		res = res + 1;
+
 		params match {
-			case DepthParameters(depth) => if (depth > depthLimit) return false;
+			case DepthParameters(depth) => if (depth + 1 > depthLimit) return false;
 			case _ => return false;
 		}
 
-		if (Methods.isURLExternal(doc.baseUri()))
-			return false
-
-		res = res + 1;
-
 		true;
+	}
+
+	/**
+	 * Returns true if url is local.
+	 */
+	def shouldProcess(url: String, params: Parameters): Boolean = {
+		Methods.isURLExternal(url) == false
 	}
 
 	/**

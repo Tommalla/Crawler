@@ -9,6 +9,8 @@ package pl.edu.mimuw.crawler.tz336079
  * as the sites graph expands. The parameters are passed to the action as well as
  * the current site's content (see [[SiteAction]]).
  */
+import java.io.File
+
 class Crawler(action: SiteAction, initialParams: Parameters) {
 
 	private var isRunning: Boolean = false;
@@ -45,8 +47,11 @@ class Crawler(action: SiteAction, initialParams: Parameters) {
 	 * path to a file.
 	 */
 	def addTargetURL(url: String): Unit = {
-		if (Graph.getNodeFor(url) == None)
-			Graph.addNode(new Node(url, this.initialParams));
-		SitesQueue.addURL(url);
+		val fixedUrl: String = if (Methods.isURLExternal(url)) url else
+			(new File(url)).toURI.toString();
+
+		if (Graph.getNodeFor(fixedUrl) == None)
+			Graph.addNode(new Node(fixedUrl, this.initialParams));
+		SitesQueue.addURL(fixedUrl);
 	}
 }

@@ -26,6 +26,10 @@ trait SiteAction {
 	 */
 	def process(doc: Document, params: Parameters): Boolean;
 	/**
+	 * Checks if the search should continue based on the url and parameters.
+	 */
+	def shouldProcess(url: String, params: Parameters): Boolean;
+	/**
 	 * Whenever an error occurs, the [[Node]] will call this method with the
 	 * exception message.
 	 */
