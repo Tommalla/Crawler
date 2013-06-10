@@ -8,13 +8,13 @@ import _root_.org.jsoup.select._;import java.io.File
 private[tz336079] case class Node(url: String, params: Parameters) {
 	implicit def iteratorToWrapper[T](iter:java.util.Iterator[T]):IteratorWrapper[T] = new IteratorWrapper[T](iter);
 
-	private var neighbours: List[Node] = Nil;
+	//private var neighbours: List[Node] = Nil;
 
 	def process(action: SiteAction): Unit = {
 		//println("Processing " + url);
 		try {
 			val doc: Document = if (Methods.isURLExternal(url)) Jsoup.connect(url).get()
-						else Jsoup.parse(new File(url), "UTF-8");
+			else Jsoup.parse(new File(url), "UTF-8");
 
 			//process the site and check if the user wants to go any further
 			if (action.process(doc, params) == false)
@@ -31,9 +31,9 @@ private[tz336079] case class Node(url: String, params: Parameters) {
 
 				Graph.getNodeFor(dst) match {
 					case None => {	//not present in the graph
-						val v: Node = new Node(dst, params.getChild());
-						Graph.addNode(v);
-						neighbours = v::neighbours;
+						//val v: Node = ;
+						Graph.addNode(new Node(dst, params.getChild()));
+						//neighbours = v::neighbours;
 						SitesQueue.addURL(dst);
 					}
 					case _ => /* don't bother - already in the graph and queued/done */
